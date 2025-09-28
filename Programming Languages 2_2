@@ -1,0 +1,49 @@
+import random
+
+
+def ensure_number(user_attempt):
+    res = -1
+    if user_attempt.isdigit():
+        res = int(user_attempt)
+    if 0 > res < 26:
+        res = -1
+    return res
+
+
+def input_integer(msg):
+    user_attempt = input(msg)
+    user_attempt = ensure_number(user_attempt)
+    return user_attempt
+
+
+def print_hint(guess_me, user_attempt):
+    if user_attempt == -1:
+        print(f"Attempt invalid")
+    elif guess_me > user_attempt:
+        print(f"({user_attempt}) too low")
+    elif guess_me < user_attempt:
+        print(f"({user_attempt}) too high")
+    elif guess_me == user_attempt:
+        print(f"({user_attempt}) correct")
+
+
+def main():
+    guess_me = random.randint(1, 25)
+    user_attempt = input_integer("You have 5 attempt, guess the number between 1 and 25: ")
+    print_hint(guess_me, user_attempt)
+    flag = guess_me != user_attempt
+    i = 0
+
+    while flag:
+        if i == 4:
+            print("Correct value:")
+            print(guess_me)
+            break
+        user_attempt = input_integer("try again: ")
+        print_hint(guess_me, user_attempt)
+        flag = guess_me != user_attempt
+        i += 1
+
+
+if name == 'main':
+    main()
